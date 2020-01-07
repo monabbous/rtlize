@@ -1,0 +1,54 @@
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+    @return $string;
+}
+
+@mixin ltr() {
+    @at-root :not([dir=rtl]) & {
+        @content;
+    }
+}
+
+@mixin rtl() {
+    @at-root [dir=rtl] & {
+        @content;
+    }
+}
+
+@mixin rtlize($property , $val) {
+    $val: inspect($val);
+
+    $ltr-property: str-replace($property, 'start', 'left');
+    $ltr-property: str-replace($ltr-property, 'end', 'right');
+    $rtl-property: str-replace($property, 'start', 'right');
+    $rtl-property: str-replace($rtl-property, 'end', 'left');
+
+
+    $ltr-val: str-replace($val, 'start', 'left');
+    $ltr-val: str-replace($ltr-val, 'end', 'right');
+    $rtl-val: str-replace($val, 'start', 'right');
+    $rtl-val: str-replace($rtl-val, 'end', 'left');
+
+    $ltr-val: str-replace($ltr-val, '$NN', '-');
+    $ltr-val: str-replace($ltr-val, '$PN', '');
+    $rtl-val: str-replace($rtl-val, '$NN', '');
+    $rtl-val: str-replace($rtl-val, '$PN', '-');
+
+    $ltr-val: str-replace($ltr-val, '$FP', '100%');
+    $ltr-val: str-replace($ltr-val, '$EP', '0%');
+    $rtl-val: str-replace($rtl-val, '$FP', '0%');
+    $rtl-val: str-replace($rtl-val, '$EP', '100%');
+    $rtl-val: #{$rtl-val};
+    $ltr-val: #{$ltr-val};
+
+    @include ltr {
+        #{$ltr-property} : #{#{$ltr-val}};
+    }
+
+    @include rtl {
+        #{$rtl-property} : #{#{$rtl-val}};
+    }
+}
