@@ -7,6 +7,10 @@
   "scripts": {
     "build": "tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monabbous/rtlize.git"
+  },
   "prepare" : "npm run build",
   "keywords": [],
   "author": "",
