@@ -12,13 +12,13 @@ $EP: '$EP';
 }
 
 @mixin ltr() {
-    @at-root :not([dir=rtl]) & {
+    @at-root html:not([dir=rtl]) & {
         @content;
     }
 }
 
 @mixin rtl() {
-    @at-root [dir=rtl] & {
+    @at-root html[dir=rtl] & {
         @content;
     }
 }
