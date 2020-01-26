@@ -1,6 +1,6 @@
 {
   "name": "rtlize",
-  "version": "1.0.0a",
+  "version": "1.0.0b",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
